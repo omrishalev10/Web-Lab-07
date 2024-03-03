@@ -1,0 +1,39 @@
+.gallery-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .main-image-container img.img-fluid {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .thumbnails-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    display: block; /* Allow block level container to manage overflow */
+    width: 100%; /* Ensure the container spans the full width */
+    max-width: 960px; /* Adjust based on the desired visible thumbnails, ensuring it aligns with .gallery-container width */
+    margin: auto; /* Center the container */
+  }
+  
+  .thumbnails {
+    display: flex; /* Use flex for the thumbnails to align horizontally */
+    justify-content: flex-start; /* Align thumbnails to the start */
+  }
+  
+  .thumbnail.img-thumbnail {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+    margin: 5px; /* Adjust margin as needed */
+    width: 150px; /* Thumbnail width */
+    height: 84px; /* Thumbnail height */
+    flex: 0 0 auto; /* Prevent thumbnails from shrinking */
+  }
+  
+  .thumbnail.img-thumbnail:hover {
+    opacity: 1;
+  }
+  
