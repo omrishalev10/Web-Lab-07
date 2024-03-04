@@ -1,23 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const thumbnailsContainer = document.getElementById('thumbnails');
-    
-    for (let i = 10; i <= 29; i++) {
-      const imgElement = document.createElement('img');
-      imgElement.classList.add('thumbnail', 'img-thumbnail');
-      imgElement.src = `https://picsum.photos/id/${i}/150/84`;
-      imgElement.alt = 'Thumbnail';
-      imgElement.setAttribute('data-img-id', i);
-      
-      imgElement.addEventListener('click', () => {
-        changeImage(i);
+var app = angular.module('imageApp', []);
+
+app.controller('ImageController', function($http) {
+  var vm = this;
+
+  vm.images = [];
+  vm.currentIndex = null;
+
+  // Function to fetch images from Picsum Photos API
+  vm.fetchImages = function() {
+    $http.get('https://picsum.photos/v2/list?page=1&limit=20')
+      .then(function(response) {
+        // Success callback
+        // Map the response to format { thumbnail: '', fullsize: '' }
+        vm.images = response.data.map(function(img) {
+          var urlBase = 'https://picsum.photos/id/' + img.id;
+          return {
+            thumbnail: urlBase + '/50/50',
+            fullsize: urlBase + '/300/300'
+          };
+        });
+      }, function(error) {
+        // Error callback
+        console.error('Error fetching images:', error);
       });
-      
-      thumbnailsContainer.appendChild(imgElement);
-    }
-  });
-  
-  function changeImage(imgId) {
-    const mainImage = document.getElementById('mainImage');
-    mainImage.src = `https://picsum.photos/id/${imgId}/900/500`;
-  }
-  
+  };
+
+  // Function to show full-size image when a thumbnail is clicked
+  vm.showFullSize = function(index) {
+    vm.currentIndex = index;
+  };
+
+  // Fetch images when controller initializes
+  vm.fetchImages();
+});
