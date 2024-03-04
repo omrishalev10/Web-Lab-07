@@ -3,49 +3,20 @@
 <head>
   <title>Image Browser</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-  <style>
-.thumbnail, .fullsize {
-  cursor: pointer;
-}
-
-.thumbnail {
-  width: 100px;
-  height: 100px;
-  margin: 5px;
-}
-.thumbnail.active {
-  border: 2px solid blue; /* Highlight the selected thumbnail */
-}
-
-.fullsize {
-  display: none;
-  margin: 0 auto; 
-}
-
-.fullsize.active {
-  display: block;
-}
-
-.container {
-  text-align: center;
-}
-
-.separator {
-  margin: 20px 0;
-  border-top: 10px solid #ccc;
-}
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container" ng-controller="ImageController as vm">
-  <div>
-    <img ng-repeat="image in vm.images" ng-src="{{image.thumbnail}}" ng-click="vm.showFullSize($index)" class="thumbnail" ng-class="{active: $index === vm.currentIndex}">
-  </div>
-  <div class="separator"></div> 
-  <div>
-    <img ng-repeat="image in vm.images" ng-src="{{image.fullsize}}" class="fullsize" ng-class="{active: $index === vm.currentIndex}">
-  </div>
+  <div ng-controller="ImageController as vm" class="image-gallery">
+    <!-- Main Image -->
+    <div class="main-image" ng-if="vm.currentIndex !== null">
+        <img ng-src="{{vm.images[vm.currentIndex].fullsize}}" alt="Main image">
+    </div>
+
+    <!-- Thumbnails -->
+    <div class="thumbnails">
+        <img ng-repeat="image in vm.images" ng-src="{{image.thumbnail}}" ng-click="vm.showFullSize($index)" alt="Thumbnail">
+    </div>
 </div>
 
 <script src="imageGallery.js"></script>
